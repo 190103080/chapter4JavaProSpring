@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:insert="~{head.html}">
+  </head>
+  <body>
+      <div class="container" th:insert="~{navbar.html}">
+
+      </div>
+
+    <div class="container mt-4">
+
+        <form th:action="@{'/addtasks'}" method="post">
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            +Add New Task
+        </button>
+
+        <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">TASK NAME:</label>
+                                            <input name="task_name" type="text" class="form-control" id="recipient-name" placeholder="Task name...">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="message-text" class="col-form-label">TASK DESCRIPTION:</label>
+                                            <textarea name="task_description" class="form-control" id="message-text" placeholder="Description..."></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">TASK DEADLINE DATE:</label>
+                                            <input name="task_deadlineDate" type="date" class="form-control" id="recipient-date">
+                                        </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button class="btn btn-success">Add Task</button>
+                                </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container mt-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NAME</th>
+                <th scope="col">DEADLINE DATE</th>
+                <th scope="col">IS COMPLETED</th>
+                <th scope="col">DETAILS</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sharualar : ${tasks}">
+                <th scope="row" th:text="${sharualar.id}"></th>
+                <td th:text="${sharualar.name}"></td>
+                <td th:text="${sharualar.deadlineDate}"></td>
+                <td th:text="${sharualar.isCompleted}"></td>
+                <td><a class="btn btn-success bg-primary btn-dark mt-2" th:href="@{'/details?id=' + ${sharualar.id}}">DETAILS</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+  </body>
+</html>
